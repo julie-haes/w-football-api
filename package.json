@@ -1,0 +1,19 @@
+{
+  "name": "dev-project",
+  "version": "1.0.0",
+  "description": "dev version of womens football project",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "express-promise-router": "^2.0.0",
+    "mongoose": "^4.11.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "Julie Haesendonckx",
+  "license": "ISC"
+}

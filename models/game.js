@@ -4,10 +4,6 @@ var Schema = mongoose.Schema;
 
 // Schema
 var gameSchema = new Schema({
-    competition : {
-        type: Schema.Types.ObjectId,
-        ref: 'Competition'
-    },
     matchday: Number,
     venue: String,
     status: String,

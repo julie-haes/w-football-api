@@ -23,6 +23,10 @@ module.exports = {
         if (newCompetition.country !== null || newCompetition.country !== undefined)
         { console.log("add to country"); await CountryController.addCompetition(newCompetition.country, newCompetition.id); }
 
+        // add subcompetition to maincompetition if applicable
+        if (newCompetition.isSubcompetition === true && newCompetition.maincompetition !== null || newCompetition.maincompetition !== undefined)
+        { console.log("add to maincompetition"); await module.exports.addSubcompetition(newCompetition.maincompetition, newCompetition.id); }
+
         newCompetition.save()
             .then(competition => {
                 res.status(201).json(competition);
@@ -80,6 +84,21 @@ module.exports = {
         Competition.findByIdAndRemove(competitionId)
             .then(competition => {
                 res.status(204).json();
+            })
+            .catch(error => {
+                next(error);
+            });
+    },
+
+    // add subcompetition to maincompetition
+    addSubcompetition: (mainCompetitionId, subcompetitionId) => {
+        Competition.findById(mainCompetitionId)
+            .then(maincompetition => {
+                var subcompetitions = maincompetition.subcompetitions;
+                subcompetitions.push(subcompetitionId);
+                var subcompetitionObject = { "subcompetitions": subcompetitions };
+
+                return Competition.findByIdAndUpdate(mainCompetitionId, subcompetitionObject, { new: true });
             })
             .catch(error => {
                 next(error);

@@ -79,18 +79,20 @@ module.exports = {
             .catch(error => {
                 next(error);
             });
-    },   
+    },
 
     // add competition
     addCompetition: (countryId, competitionId) => {
-        var competitions = [];
-        competitions.push(competitionId);
-        var countryObject = { "competitions": competitions };
+        Country.findById(countryId)
+            .then(country => {
+                var competitions = country.competitions
+                competitions.push(competitionId);
+                var countryObject = { "competitions": competitions };
 
-        Country.findByIdAndUpdate(countryId, countryObject, { new: true })
+                return Country.findByIdAndUpdate(countryId, countryObject, { new: true });
+            })
             .catch(error => {
                 next(error);
             });
-
-    } 
+    }
 }

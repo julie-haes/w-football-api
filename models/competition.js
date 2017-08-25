@@ -21,8 +21,8 @@ var competitionSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Game'
     }],
-    subcompetition: Boolean,
-    maincompetition: Boolean,
+    isSubcompetition: Boolean,
+    isMaincompetition: Boolean,
     maincompetition: {  // if (subcompetition === true)
         type: Schema.Types.ObjectId,
         ref: 'Competition'

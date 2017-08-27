@@ -94,5 +94,21 @@ module.exports = {
             .catch(error => {
                 next(error);
             });
+    },
+
+    // add team
+    addTeam: (countryId, teamId) => {
+        console.log("start adding team to country!");
+        Country.findById(countryId)
+            .then(country => {
+                var teams = country.teams
+                teams.push(teamId);
+                var countryObject = { "teams": teams };
+
+                return Country.findByIdAndUpdate(countryId, countryObject, { new: true });
+            })
+            .catch(error => {
+                next(error);
+            });
     }
 }

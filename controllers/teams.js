@@ -1,5 +1,7 @@
 // Dependencies
 var Team = require('../models/team');
+var CountryController = require('../controllers/countries');
+var CompetitionController = require('../controllers/competitions');
 
 // Methods
 module.exports = {
@@ -15,8 +17,23 @@ module.exports = {
     },
 
     // Create one record
-    createTeam: (req, res, next) => {
+    createTeam: async (req, res, next) => {
         var newTeam = new Team(req.body);
+        var comps = newTeam.competitions;
+
+        // add team to country
+        if (newTeam.country !== null && newTeam.country !== undefined)
+        { console.log("add team to country"); await CountryController.addTeam(newTeam.country, newTeam.id); }
+
+        // add team to competition(s)
+        if (newTeam.competitions.length > 0 && newTeam.competitions !== undefined && newTeam.competitions !== null)
+        { 
+            console.log("add team to competition"); 
+            comps.map(competition => {
+                console.log(competition);
+                CompetitionController.addTeam(competition, newTeam.id);
+            })
+        }
 
         newTeam.save()
             .then(team => {

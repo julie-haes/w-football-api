@@ -6,7 +6,7 @@ var CountryController = require('../controllers/countries');
 module.exports = {
     // Show all records
     index: (req, res, next) => {
-        Competition.find({})//.populate('country')
+        Competition.find({}).populate('teams')
             .then(competitions => {
                 res.status(200).json(competitions);
             })
@@ -103,5 +103,22 @@ module.exports = {
             .catch(error => {
                 next(error);
             });
+    },
+
+    // add team
+    addTeam: (competitionId, teamId) => {
+        console.log("start adding team to competitions!", competitionId);
+
+        Competition.findById(competitionId)
+            .then(competition => {
+                var teams = competition.teams
+                teams.push(teamId);
+                var competitionObject = { "teams": teams };
+
+                return Competition.findByIdAndUpdate(competition, competitionObject, { new: true });
+            }).catch(error => {
+                next(error);
+            });
+
     }
 }

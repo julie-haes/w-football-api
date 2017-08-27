@@ -1,5 +1,6 @@
 // Dependencies
 var Player = require('../models/player');
+var CountryController = require('../controllers/countries');
 
 // Methods
 module.exports = {
@@ -15,8 +16,13 @@ module.exports = {
     },
 
     // Create one record
-    createPlayer: (req, res, next) => {
+    createPlayer: async (req, res, next) => {
         var newPlayer = new Player(req.body);
+        console.log()
+
+        // add player to country
+        if (newPlayer.nationality !== null && newPlayer.nationality !== undefined)
+        { console.log("add player to nationality"); await CountryController.addPlayer(newPlayer.nationality, newPlayer.id); }
 
         newPlayer.save()
             .then(player => {

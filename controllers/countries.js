@@ -5,7 +5,7 @@ var Country = require('../models/country');
 module.exports = {
     // Show all records
     index: (req, res, next) => {
-        Country.find({}).populate('teams')
+        Country.find({})//.populate('players')
             .then(countries => {
                 res.status(200).json(countries);
             })
@@ -104,6 +104,22 @@ module.exports = {
                 var teams = country.teams
                 teams.push(teamId);
                 var countryObject = { "teams": teams };
+
+                return Country.findByIdAndUpdate(countryId, countryObject, { new: true });
+            })
+            .catch(error => {
+                next(error);
+            });
+    },
+
+    // add player
+    addPlayer: (countryId, playerId) => {
+        console.log("start adding player to country!");
+        Country.findById(countryId)
+            .then(country => {
+                var players = country.players
+                players.push(playerId);
+                var countryObject = { "players": players };
 
                 return Country.findByIdAndUpdate(countryId, countryObject, { new: true });
             })

@@ -96,5 +96,21 @@ module.exports = {
             .catch(error => {
                 next(error);
             });
+    },
+
+    // add selection
+    addSelection: (teamId, selectionId) => {
+        console.log("start adding selection to team!");
+        Team.findById(teamId)
+            .then(team => {
+                var selections = team.selections
+                selections.push(selectionId);
+                var teamObject = { "selections": selections };
+
+                return Team.findByIdAndUpdate(teamId, teamObject, { new: true });
+            })
+            .catch(error => {
+                next(error);
+            });
     }
 }

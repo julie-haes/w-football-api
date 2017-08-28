@@ -13,7 +13,8 @@ var selectionSchema = new Schema({
     players : [{
         type: Schema.Types.ObjectId,
         ref: 'Player'
-    }]
+    }],
+    currenct_selection: Boolean
 });
 
 // Return model

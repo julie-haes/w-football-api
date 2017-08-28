@@ -1,5 +1,6 @@
 // Dependencies
 var Selection = require('../models/selection');
+var TeamController = require('../controllers/teams');
 
 // Methods
 module.exports = {
@@ -15,8 +16,12 @@ module.exports = {
     },
 
     // Create one record
-    createSelection: (req, res, next) => {
+    createSelection: async (req, res, next) => {
         var newSelection = new Selection(req.body);
+
+        // add selection to team
+        if (newSelection.team !== null && newSelection.team !== undefined)
+        { console.log("add selection to team"); await TeamController.addSelection(newSelection.team, newSelection.id); }
 
         newSelection.save()
             .then(selection => {
@@ -74,6 +79,27 @@ module.exports = {
 
         Selection.findByIdAndRemove(selectionId)
             .then(selection => {
+                res.status(204).json();
+            })
+            .catch(error => {
+                next(error);
+            });
+    },
+
+    // add player to selection
+    addPlayer: (req, res, next) => {
+        var { player } = req.body;
+        var { selectionId } = req.params;
+
+        console.log("start adding player to selection!");
+        Selection.findById(selectionId)
+            .then(selection => {
+                var players = selection.players;
+                players.push(player);
+                var selectionObject = { "players": players };
+
+                return Selection.findByIdAndUpdate(selectionId, selectionObject, { new: true });
+            }).then(selection => {
                 res.status(204).json();
             })
             .catch(error => {

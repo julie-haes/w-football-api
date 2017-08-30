@@ -1,11 +1,12 @@
 // Dependencies
 var Game = require('../models/game');
+var TeamController = require('../controllers/teams');
 
 // Methods
 module.exports = {
     // Show all records
     index: (req, res, next) => {
-        Game.find({})//.populate('country')
+        Game.find({}).populate(['hometeam', 'awayteam'])
             .then(games => {
                 res.status(200).json(games);
             })
@@ -15,8 +16,16 @@ module.exports = {
     },
 
     // Create one record
-    createGame: (req, res, next) => {
+    createGame: async (req, res, next) => {
         var newGame = new Game(req.body);
+        
+        // add game to hometeam
+        if (newGame.hometeam !== null && newGame.hometeam !== undefined)
+        { console.log("add game to hometeam"); await TeamController.addGame(newGame.hometeam, newGame.id); }
+
+        // add game to awayteam
+        if (newGame.awayteam !== null && newGame.awayteam !== undefined)
+        { console.log("add game to awayteam"); await TeamController.addGame(newGame.awayteam, newGame.id); }
 
         newGame.save()
             .then(game => {

@@ -14,5 +14,8 @@ router.route('/:competitionId')
     .patch(CompetitionController.updateCompetition)
     .delete(CompetitionController.deleteCompetition);
 
+router.route('/game/:competitionId')
+    .post(CompetitionController.addGame);
+
 // Return router
 module.exports = router;

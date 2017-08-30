@@ -112,5 +112,22 @@ module.exports = {
             .catch(error => {
                 next(error);
             });
+    },
+
+    // add game
+    addGame: (teamId, gameId) => {
+        console.log("start adding game to team!", teamId);
+
+        Team.findById(teamId)
+            .then(team => {
+                var games = team.games
+                games.push(gameId);
+                var teamObject = { "games": games };
+
+                return Team.findByIdAndUpdate(teamId, teamObject, { new: true });
+            }).catch(error => {
+                next(error);
+            });
+
     }
 }

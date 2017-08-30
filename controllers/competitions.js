@@ -120,5 +120,27 @@ module.exports = {
                 next(error);
             });
 
+    },
+
+    // add game
+    addGame: (req, res, next) => {
+        var { game } = req.body;
+        var { competitionId } = req.params;
+
+        console.log("start adding game to competitions!", competitionId);
+
+        Competition.findById(competitionId)
+            .then(competition => {
+                var games = competition.games
+                games.push(game);
+                var competitionObject = { "games": games };
+
+                return Competition.findByIdAndUpdate(competition, competitionObject, { new: true });
+            }).then(competition => {
+                res.status(204).json();
+            }).catch(error => {
+                next(error);
+            });
+
     }
 }

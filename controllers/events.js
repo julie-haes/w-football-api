@@ -1,5 +1,6 @@
 // Dependencies
 var Event = require('../models/event');
+var GameController = require('../controllers/games');
 
 // Methods
 module.exports = {
@@ -15,8 +16,12 @@ module.exports = {
     },
 
     // Create one record
-    createEvent: (req, res, next) => {
+    createEvent: async (req, res, next) => {
         var newEvent = new Event(req.body);
+
+        // add event to game
+        if (newEvent.game !== null && newEvent.game !== undefined)
+            { console.log("add event to game"); await GameController.addEvent(newEvent.game, newEvent.id); }
 
         newEvent.save()
             .then(event => {

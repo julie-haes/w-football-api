@@ -88,5 +88,20 @@ module.exports = {
             .catch(error => {
                 next(error);
             });
+    },
+
+    // add event
+    addEvent: (gameId, eventId) => {
+        Game.findById(gameId)
+            .then(game => {
+                var events = game.events;
+                events.push(eventId);
+                var gameObject = { "events": events };
+
+                return Game.findByIdAndUpdate(gameId, gameObject, { new: true });
+            })
+            .catch(error => {
+                next(error);
+            });
     }
 }

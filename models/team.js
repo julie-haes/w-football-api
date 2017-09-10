@@ -15,12 +15,12 @@ var teamSchema = new Schema({
     competitions: [{
         type: Schema.Types.ObjectId,
         ref: 'Competition'
+    }],    
+    tournaments: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Tournament'
     }],
     nationalteam: Boolean,
-    // players: [{
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Player'
-    // }],
     games: [{
         type: Schema.Types.ObjectId,
         ref: 'Game'

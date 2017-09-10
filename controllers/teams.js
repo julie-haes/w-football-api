@@ -19,7 +19,6 @@ module.exports = {
     // Create one record
     createTeam: async (req, res, next) => {
         var newTeam = new Team(req.body);
-        var comps = newTeam.competitions;
 
         // add team to country
         if (newTeam.country !== null && newTeam.country !== undefined)
@@ -28,12 +27,24 @@ module.exports = {
         // add team to competition(s)
         if (newTeam.competitions.length > 0 && newTeam.competitions !== undefined && newTeam.competitions !== null)
         { 
+            var comps = newTeam.competitions;
             console.log("add team to competition"); 
             comps.map(competition => {
                 console.log(competition);
-                CompetitionController.addTeam(competition, newTeam.id);
+                await CompetitionController.addTeam(competition, newTeam.id);
             })
         }
+
+        // add team to tournaments(s)
+        if (newTeam.tournaments.length > 0 && newTeam.tournaments !== undefined && newTeam.tournaments !== null)
+            { 
+                var tournaments = newTeam.tournaments;
+                console.log("add team to tournament"); 
+                tournaments.map(tournament => {
+                    console.log(tournament);
+                    await TournamentController.addTeam(tournament, newTeam.id);
+                })
+            }
 
         newTeam.save()
             .then(team => {

@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 
 // MongoDB
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/dev-project');
+mongoose.connect('mongodb://localhost/euro2017');
 
 // Express
 var app = express();

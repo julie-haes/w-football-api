@@ -4,7 +4,6 @@ var Schema = mongoose.Schema;
 
 // Schema
 var tournamentGameSchema = new Schema({
-    name: String,
     stage: String,
     group: String,
     tournament: {

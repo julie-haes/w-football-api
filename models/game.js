@@ -12,7 +12,7 @@ var gameSchema = new Schema({
     venue: String,
     status: String,
     time: String,
-    date: String,
+    date: Date,
     hometeam : {
         type: Schema.Types.ObjectId,
         ref: 'Team'
@@ -45,7 +45,8 @@ var gameSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Player'
     }],
-    referee: String
+    referee: String //,
+    // tournament_game: Boolean
 });
 
 // Return model

@@ -1,5 +1,6 @@
 // Dependencies
 var TournamentGame = require('../models/tournamentGame');
+var TournamentController = require('../controllers/tournaments');
 
 // Methods
 module.exports = {
@@ -17,6 +18,13 @@ module.exports = {
     // Create one record
     createTournamentGame: (req, res, next) => {
         var newTournamentGame = new TournamentGame(req.body);
+        var newGame = new Game(newTournamentGame.game);
+
+        await newGame.save();
+
+        // add game to tournament
+        if (newTournamentGame.tournament !== null && newTournamentGame.tournament !== undefined)
+        { console.log("add game to tournament"); await TournamentController.addGame(newTournamentGame.tournament, newTournamentGame.id); }
 
         newTournamentGame.save()
             .then(tournamentGame => {

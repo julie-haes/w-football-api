@@ -25,6 +25,10 @@ var tournamentSchema = new Schema({
     games : [{
         type: Schema.Types.ObjectId,
         ref: 'TournamentGame'
+    }],
+    teams: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Team'
     }]
 });
 

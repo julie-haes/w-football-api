@@ -14,7 +14,8 @@ var selectionSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Player'
     }],
-    currenct_selection: Boolean
+    currenct_selection: Boolean,
+    coach: String
 });
 
 // Return model

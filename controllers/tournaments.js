@@ -79,5 +79,39 @@ module.exports = {
             .catch(error => {
                 next(error);
             });
+    },
+
+    // add team to tournament
+    addTeam: (tournamentId, teamId) => {
+        console.log("start adding team to tournament!", tournamentId);
+
+        Tournament.findById(tournamentId)
+            .then(tournament => {
+                var teams = tournament.teams
+                teams.push(teamId);
+                var tournamentObject = { "teams": teams };
+
+                return Tournament.findByIdAndUpdate(tournament, tournamentObject, { new: true });
+            }).catch(error => {
+                next(error);
+            });
+
+    },
+
+    // add game to tournament
+    addGame: (tournamentId, gameId) => {
+        console.log("start adding game to tournament!", tournamentId);
+
+        Tournament.findById(tournamentId)
+            .then(tournament => {
+                var games = tournament.games
+                games.push(gameId);
+                var tournamentObject = { "games": games };
+
+                return Tournament.findByIdAndUpdate(tournament, tournamentObject, { new: true });
+            }).catch(error => {
+                next(error);
+            });
+
     }
 }

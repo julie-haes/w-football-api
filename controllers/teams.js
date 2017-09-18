@@ -1,6 +1,7 @@
 // Dependencies
 var Team = require('../models/team');
 var CountryController = require('../controllers/countries');
+var TournamentController = require('../controllers/tournaments');
 var CompetitionController = require('../controllers/competitions');
 
 // Methods
@@ -31,7 +32,7 @@ module.exports = {
             console.log("add team to competition"); 
             comps.map(competition => {
                 console.log(competition);
-                await CompetitionController.addTeam(competition, newTeam.id);
+                CompetitionController.addTeam(competition, newTeam.id);
             })
         }
 
@@ -42,7 +43,7 @@ module.exports = {
                 console.log("add team to tournament"); 
                 tournaments.map(tournament => {
                     console.log(tournament);
-                    await TournamentController.addTeam(tournament, newTeam.id);
+                    TournamentController.addTeam(tournament, newTeam.id);
                 })
             }
 

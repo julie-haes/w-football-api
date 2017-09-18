@@ -12,7 +12,7 @@ var gameSchema = new Schema({
     venue: String,
     status: String,
     time: String,
-    date: Date,
+    date: String,
     hometeam : {
         type: Schema.Types.ObjectId,
         ref: 'Team'

@@ -16,7 +16,7 @@ module.exports = {
     },
 
     // Create one record
-    createTournamentGame: (req, res, next) => {
+    createTournamentGame: async (req, res, next) => {
         var newTournamentGame = new TournamentGame(req.body);
         var newGame = new Game(newTournamentGame.game);
 

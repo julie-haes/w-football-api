@@ -11,8 +11,8 @@ var tournamentSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Country'
     },
-    start_date: Date,
-    end_date: Date,
+    start_date: String,
+    end_date: String,
     winner: {
         type: Schema.Types.ObjectId,
         ref: 'Team'

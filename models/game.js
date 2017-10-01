@@ -13,30 +13,50 @@ var gameSchema = new Schema({
     status: String,
     time: String,
     date: String,
-    hometeam : {
+    hometeam: {
         type: Schema.Types.ObjectId,
         ref: 'Team'
     },
-    awayteam : {
+    awayteam: {
         type: Schema.Types.ObjectId,
         ref: 'Team'
     },
     hometeam_score: String,
-    awayteam_score: String, 
+    awayteam_score: String,
     halftime_score: String,
     fulltime_score: String,
     events: [{
         type: Schema.Types.ObjectId,
         ref: 'Event'
     }],
-    startingXI_hometeam: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Player'
-    }],
-    startingXI_awayteam: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Player'
-    }],
+    startingXI_hometeam: {
+        'captain': {
+            type: Schema.Types.ObjectId,
+            ref: 'Player'
+        },
+        'goalkeeper': {
+            type: Schema.Types.ObjectId,
+            ref: 'Player'
+        },
+        'players': [{
+            type: Schema.Types.ObjectId,
+            ref: 'Player'
+        }]
+    },
+    startingXI_awayteam: {
+        'captain': {
+            type: Schema.Types.ObjectId,
+            ref: 'Player'
+        },
+        'goalkeeper': {
+            type: Schema.Types.ObjectId,
+            ref: 'Player'
+        },
+        'players': [{
+            type: Schema.Types.ObjectId,
+            ref: 'Player'
+        }]
+    },
     substitutes_hometeam: [{
         type: Schema.Types.ObjectId,
         ref: 'Player'

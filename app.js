@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 
 // MongoDB
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/euro2017');
+mongoose.connect('mongodb://localhost/football-api');
 
 // Express
 var app = express();
